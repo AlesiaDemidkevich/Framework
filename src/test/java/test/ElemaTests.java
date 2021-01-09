@@ -38,23 +38,25 @@ public class ElemaTests extends CommonConditions{
                 Assert.assertEquals(item.getItemCount(), "1");
     }
 
-    /*@Test
+    @Test
     public void addThreeItemsToCartTest(){
-        String countOfItems = new ElemaHomePage(driver)
-                .openPage()
-                .inputProductNumber(productNumber)
-                .chooseTargetModel()
+        Item expectedItem = ItemCreator.withCredentialsFromProperty();
+
+        Item item = new ElemaItemPage(driver)
+                .openPage(expectedItem.getItemUrl())
                 .scrollToItem()
-                .chooseSize()
-                .chooseHeight()
+                .chooseSize(expectedItem.getItemSize())
+                .chooseHeight(expectedItem.getItemHeight())
                 .addToCart()
+                .scrollToItem()
                 .addToCart()
+                .scrollToItem()
                 .addToCart()
                 .openCart()
-                .getCountOfItems();
+                .getItem();
 
-        Assert.assertEquals(countOfItems, "3");
-    }*/
+         Assert.assertEquals(item.getItemCount(), "3");
+    }
 
     @AfterMethod
     public void closeDriver(){
