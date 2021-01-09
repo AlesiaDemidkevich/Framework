@@ -23,18 +23,18 @@ public class ElemaCartPage extends AbstractPage {
 
     @FindBy(xpath = "//div[@data-column-property-code=\"HEIGHT\"]")
     WebElement itemHeight;
-
-    @FindBy(xpath = "//div[@data-column-property-code=\"PRICE\"]")
-    WebElement itemPrice;
+//
+//    @FindBy(xpath = "//div[@data-column-property-code=\"PRICE\"]")
+//    WebElement itemPrice;
 
     @FindBy(xpath = "//input[@class=\"basket-item-amount-filed\"]")
     WebElement itemCount;
 
-    @FindBy(xpath = "//div[@class=\"basket-coupon-block-total-price-current\"]")
-    WebElement itemCost;
-
     @FindBy(xpath = "//span[@class=\"basket-item-amount-btn-plus\"]")
     WebElement addOneSameProductButton;
+
+    @FindBy(xpath = "//div[@class=\"basket-coupon-block-total-price-current\"]")
+    WebElement itemPrice;
     public ElemaCartPage(WebDriver driver) {
         super(driver);
     }
@@ -48,12 +48,11 @@ public class ElemaCartPage extends AbstractPage {
         String name = itemName.getText();
         String size = itemSize.getText();
         String height = itemHeight.getText();
-        double price = Double.parseDouble(itemPrice.getText());
         String count = itemCount.getAttribute("value");
         Thread.sleep(500);
-        double cost = Double.parseDouble(itemCost.getText().substring(0,6).replace(",","."));
+        double price = Double.parseDouble(itemPrice.getText().substring(0,itemPrice.getText().indexOf(" ")).replace(",","."));
 
-        return new Item(name,size,height,price, count, cost);
+        return new Item(name,size,height,price, count);
     }
 
     public ElemaCartPage addOneSameProduct()

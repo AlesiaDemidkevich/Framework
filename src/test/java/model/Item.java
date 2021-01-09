@@ -112,8 +112,7 @@ public class Item {
         Item item = (Item) o;
         return  Objects.equals(getItemName(), item.getItemName()) &&
                 Objects.equals(getItemSize(),item.getItemSize()) &&
-                Objects.equals(getItemHeight(),item.getItemHeight()) &&
-                Objects.equals(getItemPrice(),item.getItemPrice());
+                Objects.equals(getItemHeight(),item.getItemHeight());
     }
 
     @Override

@@ -87,13 +87,14 @@ public class ElemaTests extends CommonConditions{
                 .addOneSameProduct()
                 .getItem();
 
-        System.out.println(item.getItemCost());
+        double cost = item.getItemPrice();
+        System.out.println(cost);
 
-        double totalCost = item.getItemPrice()*2;
+        double totalCost = expectedItem.getItemPrice()*2;
         System.out.println(totalCost);
 
         Assert.assertTrue(item.equals(expectedItem));
-        Assert.assertEquals(item.getItemCost(),totalCost);
+        Assert.assertEquals(cost,totalCost);
     }
 
 
