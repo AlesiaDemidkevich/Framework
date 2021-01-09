@@ -24,6 +24,9 @@ public class ElemaItemPage extends AbstractPage{
     @FindBy(xpath = "//a[@href=\"/personal/cart/\"]")
     WebElement openCartButton;
 
+    @FindBy(xpath = "//h1[@class=\"name_block\"]")
+    WebElement itemName;
+
     public ElemaItemPage(WebDriver driver) {
         super(driver);
     }
@@ -47,6 +50,12 @@ public class ElemaItemPage extends AbstractPage{
         waitUntilElementIsClickable(addToCartButton)
                 .click();
         return this;
+    }
+
+    public String getProductName(){
+        String name = itemName.getText();
+
+        return name;
     }
 
     public ElemaItemPage scrollToItem(){

@@ -8,6 +8,7 @@ public class Item {
     private String size;
     private String height;
     private double price;
+    private double cost;
     private String count;
 
 
@@ -25,6 +26,15 @@ public class Item {
         this.height= height;
         this.price = price;
         this.count = count;
+    }
+
+    public Item(String name, String size, String height, double price, String count, double cost) {
+        this.name = name;
+        this.size = size;
+        this.height= height;
+        this.price = price;
+        this.count = count;
+        this.cost = cost;
     }
 
     public String getItemUrl() {
@@ -73,6 +83,14 @@ public class Item {
 
     public void setItemCount(String count) {
         this.count = count;
+    }
+
+    public double getItemCost() {
+        return cost;
+    }
+
+    public void setItemCost(double cost) {
+        this.cost = cost;
     }
 
     @Override

@@ -24,9 +24,9 @@ public class ElemaHomePage extends AbstractPage {
         return this;
     }
 
-    public ElemaProductContainerPage inputProductNumber(String productNumber) {
+    public ElemaProductContainerPage inputProductName(String productName) {
         searchInput.click();
-        waitUntilVisibilityOf(searchInput).sendKeys(productNumber);
+        waitUntilVisibilityOf(searchInput).sendKeys(productName);
         searchInput.sendKeys(Keys.ENTER);
         return new ElemaProductContainerPage(driver);
     }

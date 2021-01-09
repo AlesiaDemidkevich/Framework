@@ -20,9 +20,10 @@ import service.ItemCreator;
 import service.TestDataReader;
 
 public class ElemaTests extends CommonConditions{
+    private static final String HOMEPAGE_URL = "https://elema.by/";
 
     @Test
-    public void addItemToCartTest(){
+    public void addItemToCartTest() throws InterruptedException {
         Item expectedItem = ItemCreator.withCredentialsFromProperty();
 
        Item item = new ElemaItemPage(driver)
@@ -39,7 +40,7 @@ public class ElemaTests extends CommonConditions{
     }
 
     @Test
-    public void addThreeItemsToCartTest(){
+    public void addThreeItemsToCartTest() throws InterruptedException {
         Item expectedItem = ItemCreator.withCredentialsFromProperty();
 
         Item item = new ElemaItemPage(driver)
@@ -54,29 +55,47 @@ public class ElemaTests extends CommonConditions{
                 .addToCart()
                 .openCart()
                 .getItem();
-
+        Assert.assertTrue(item.equals(expectedItem));
          Assert.assertEquals(item.getItemCount(), "3");
     }
 
-//    @Test
-//    public void searchTest(){
-//        Item expectedItem = ItemCreator.withCredentialsFromProperty();
-//
-//        Item item = new ElemaItemPage(driver)
-//                .openPage(expectedItem.getItemUrl())
-//                .scrollToItem()
-//                .chooseSize(expectedItem.getItemSize())
-//                .chooseHeight(expectedItem.getItemHeight())
-//                .addToCart()
-//                .scrollToItem()
-//                .addToCart()
-//                .scrollToItem()
-//                .addToCart()
-//                .openCart()
-//                .getItem();
-//
-//        Assert.assertEquals(item.getItemCount(), "3");
-//    }
+    @Test
+    public void searchTest(){
+        Item expectedItem = ItemCreator.withCredentialsFromProperty();
+
+        String item = new ElemaHomePage(driver)
+                .openPage(HOMEPAGE_URL)
+                .inputProductName(expectedItem.getItemName())
+                .chooseTargetModel()
+                .getProductName();
+
+        Assert.assertTrue(item.equals(expectedItem.getItemName()));
+
+    }
+
+    @Test
+    public void changeAmountOfProductTest() throws InterruptedException {
+        Item expectedItem = ItemCreator.withCredentialsFromProperty();
+
+        Item item = new ElemaItemPage(driver)
+                .openPage(expectedItem.getItemUrl())
+                .scrollToItem()
+                .chooseSize(expectedItem.getItemSize())
+                .chooseHeight(expectedItem.getItemHeight())
+                .addToCart()
+                .openCart()
+                .addOneSameProduct()
+                .getItem();
+
+        System.out.println(item.getItemCost());
+
+        double totalCost = item.getItemPrice()*2;
+        System.out.println(totalCost);
+
+        Assert.assertTrue(item.equals(expectedItem));
+        Assert.assertEquals(item.getItemCost(),totalCost);
+    }
+
 
     @AfterMethod
     public void closeDriver(){

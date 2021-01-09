@@ -30,9 +30,11 @@ public class ElemaCartPage extends AbstractPage {
     @FindBy(xpath = "//input[@class=\"basket-item-amount-filed\"]")
     WebElement itemCount;
 
-    @FindBy(xpath = "//*[@id=\"basket-item-sum-price-116582\"]")
+    @FindBy(xpath = "//div[@class=\"basket-coupon-block-total-price-current\"]")
     WebElement itemCost;
 
+    @FindBy(xpath = "//span[@class=\"basket-item-amount-btn-plus\"]")
+    WebElement addOneSameProductButton;
     public ElemaCartPage(WebDriver driver) {
         super(driver);
     }
@@ -42,13 +44,21 @@ public class ElemaCartPage extends AbstractPage {
         return this;
     }
 
-    public Item getItem(){
+    public Item getItem() throws InterruptedException {
         String name = itemName.getText();
         String size = itemSize.getText();
         String height = itemHeight.getText();
         double price = Double.parseDouble(itemPrice.getText());
         String count = itemCount.getAttribute("value");
+        Thread.sleep(500);
+        double cost = Double.parseDouble(itemCost.getText().substring(0,6).replace(",","."));
 
-        return new Item(name,size,height,price, count);
+        return new Item(name,size,height,price, count, cost);
+    }
+
+    public ElemaCartPage addOneSameProduct()
+    {
+        waitUntilVisibilityOf(addOneSameProductButton).click();
+        return this;
     }
 }
