@@ -8,7 +8,6 @@ public class Item {
     private String size;
     private String height;
     private double price;
-    private double cost;
     private String count;
 
 
