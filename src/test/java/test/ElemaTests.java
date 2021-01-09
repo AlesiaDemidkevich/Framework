@@ -33,36 +33,30 @@ public class ElemaTests extends CommonConditions{
                 .addToCart()
                 .openCart()
                 .getItem();
-//               .openPage("https://elema.by/catalog/zhenskie-uteplennye-palto/palto-zhenskoe-demisezonnoe-1-10509-1/")
-//               .scrollToItem()
-//               .chooseSize("44")
-//               .chooseHeight("170")
-//               .addToCart()
-//               .openCart()
-//               .getItem();
+
                 Assert.assertTrue(item.equals(expectedItem));
                 Assert.assertEquals(item.getItemCount(), "1");
     }
 
-//    @Test
-//    public void addThreeItemsToCartTest(){
-//        Item expectedItem = ItemCreator.withCredentialsFromProperty();
-//
-//        Item item = new ElemaItemPage(driver)
-//                .openPage(expectedItem.getItemUrl())
-//                .scrollToItem()
-//                .chooseSize(expectedItem.getItemSize())
-//                .chooseHeight(expectedItem.getItemHeight())
-//                .addToCart()
-//                .scrollToItem()
-//                .addToCart()
-//                .scrollToItem()
-//                .addToCart()
-//                .openCart()
-//                .getItem();
-//
-//         Assert.assertEquals(item.getItemCount(), "3");
-//    }
+    @Test
+    public void addThreeItemsToCartTest(){
+        Item expectedItem = ItemCreator.withCredentialsFromProperty();
+
+        Item item = new ElemaItemPage(driver)
+                .openPage(expectedItem.getItemUrl())
+                .scrollToItem()
+                .chooseSize(expectedItem.getItemSize())
+                .chooseHeight(expectedItem.getItemHeight())
+                .addToCart()
+                .scrollToItem()
+                .addToCart()
+                .scrollToItem()
+                .addToCart()
+                .openCart()
+                .getItem();
+
+         Assert.assertEquals(item.getItemCount(), "3");
+    }
 
     @AfterMethod
     public void closeDriver(){
