@@ -55,9 +55,9 @@ public class ElemaTests extends CommonConditions{
 
         Assert.assertEquals(countOfItems, "3");
     }*/
-/*
+
     @AfterMethod
     public void closeDriver(){
        driver.close();
-    }*/
+    }
 }
