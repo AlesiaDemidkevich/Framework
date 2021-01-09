@@ -58,6 +58,26 @@ public class ElemaTests extends CommonConditions{
          Assert.assertEquals(item.getItemCount(), "3");
     }
 
+//    @Test
+//    public void searchTest(){
+//        Item expectedItem = ItemCreator.withCredentialsFromProperty();
+//
+//        Item item = new ElemaItemPage(driver)
+//                .openPage(expectedItem.getItemUrl())
+//                .scrollToItem()
+//                .chooseSize(expectedItem.getItemSize())
+//                .chooseHeight(expectedItem.getItemHeight())
+//                .addToCart()
+//                .scrollToItem()
+//                .addToCart()
+//                .scrollToItem()
+//                .addToCart()
+//                .openCart()
+//                .getItem();
+//
+//        Assert.assertEquals(item.getItemCount(), "3");
+//    }
+
     @AfterMethod
     public void closeDriver(){
        driver.close();

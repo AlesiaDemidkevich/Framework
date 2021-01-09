@@ -14,15 +14,15 @@ public class DriverSingleton {
 
     public static WebDriver getDriver() {
         if (driver == null) {
-//            switch (System.getProperty("browser")) {
-//                case "edge":
-//                    WebDriverManager.edgedriver().setup();
-//                    driver = new EdgeDriver();
-//                    break;
-//                default:
+            switch (System.getProperty("browser")) {
+                case "edge":
+                    WebDriverManager.edgedriver().setup();
+                    driver = new EdgeDriver();
+                    break;
+                default:
                     WebDriverManager.chromedriver().setup();
                     driver = new ChromeDriver();
-            //}
+            }
             driver.manage().window().maximize();
         }
         return driver;
