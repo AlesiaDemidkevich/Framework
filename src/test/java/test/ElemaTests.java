@@ -23,24 +23,24 @@ public class ElemaTests extends CommonConditions{
 
     @Test
     public void addItemToCartTest(){
-        //Item expectedItem = ItemCreator.withCredentialsFromProperty();
+        Item expectedItem = ItemCreator.withCredentialsFromProperty();
 
        Item item = new ElemaItemPage(driver)
-//                .openPage(expectedItem.getItemUrl())
-//                .scrollToItem()
-//                .chooseSize(expectedItem.getItemSize())
-//                .chooseHeight(expectedItem.getItemHeight())
-//                .addToCart()
-//                .openCart()
-//                .getItem();
-               .openPage("https://elema.by/catalog/zhenskie-uteplennye-palto/palto-zhenskoe-demisezonnoe-1-10509-1/")
-               .scrollToItem()
-               .chooseSize("44")
-               .chooseHeight("170")
-               .addToCart()
-               .openCart()
-               .getItem();
-               // Assert.assertTrue(item.equals(expectedItem));
+                .openPage(expectedItem.getItemUrl())
+                .scrollToItem()
+                .chooseSize(expectedItem.getItemSize())
+                .chooseHeight(expectedItem.getItemHeight())
+                .addToCart()
+                .openCart()
+                .getItem();
+//               .openPage("https://elema.by/catalog/zhenskie-uteplennye-palto/palto-zhenskoe-demisezonnoe-1-10509-1/")
+//               .scrollToItem()
+//               .chooseSize("44")
+//               .chooseHeight("170")
+//               .addToCart()
+//               .openCart()
+//               .getItem();
+                Assert.assertTrue(item.equals(expectedItem));
                 Assert.assertEquals(item.getItemCount(), "1");
     }
 
