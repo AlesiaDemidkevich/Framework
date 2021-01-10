@@ -3,7 +3,7 @@
 <suite name="smoke" verbose="1" >
     <test name="smoke">
         <classes>
-            <class name="test.UserDataTests"/> <!--изменить тест-->
+            <class name="test.UserDataTests"/>
         </classes>
     </test>
 </suite>

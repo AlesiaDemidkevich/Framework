@@ -10,13 +10,17 @@ public class CommonConditions {
     protected WebDriver driver;
 
     @BeforeMethod
-    public void init(){
+    public void init() {
         driver = DriverSingleton.getDriver();
     }
 
     @AfterMethod(alwaysRun = true)
-    public void dispose(){
-        DriverSingleton.closeDriver();
+    public void browserTearDown() {
+        DriverSingleton.deleteAllCookies();
     }
 
+    @AfterTest
+    public void dispose() {
+        DriverSingleton.closeDriver();
+    }
 }

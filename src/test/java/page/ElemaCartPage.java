@@ -6,9 +6,6 @@ import org.openqa.selenium.support.FindBy;
 
 public class ElemaCartPage extends AbstractPage {
 
-    @FindBy(xpath = "//input[@class=\"basket-item-amount-filed\"]")
-    WebElement cartItem;
-
     @FindBy(xpath = "//span[@data-entity=\"basket-item-name\"]")
     WebElement itemName;
 
@@ -51,11 +48,11 @@ public class ElemaCartPage extends AbstractPage {
     }
 
     public Item getItem() throws InterruptedException {
+        Thread.sleep(500);
         String name = itemName.getText();
         String size = itemSize.getText();
         String height = itemHeight.getText();
         String count = itemCount.getAttribute("value");
-        Thread.sleep(500);
         double price = Double.parseDouble(itemPrice.getText().substring(0,itemPrice.getText().indexOf("р")-1).replace(",",".").replace(" ",""));
 
         return new Item(name,size,height,price, count);
