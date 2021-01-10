@@ -1,6 +1,5 @@
 package test;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import jdk.nashorn.internal.runtime.Debug;
 import model.Item;
 import model.User;
