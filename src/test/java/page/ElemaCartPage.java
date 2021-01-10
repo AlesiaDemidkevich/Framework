@@ -2,12 +2,7 @@ package page;
 
 import model.Item;
 import org.openqa.selenium.*;
-
-import java.util.ArrayList;
 import org.openqa.selenium.support.FindBy;
-import service.ItemCreator;
-
-import static util.Resolver.resolveTemplate;
 
 public class ElemaCartPage extends AbstractPage {
 
@@ -66,20 +61,17 @@ public class ElemaCartPage extends AbstractPage {
         return new Item(name,size,height,price, count);
     }
 
-    public ElemaCartPage addOneSameProduct()
-    {
+    public ElemaCartPage addOneSameProduct() {
         waitUntilVisibilityOf(addOneSameProductButton).click();
         return this;
     }
 
-    public ElemaCartPage removeOneSameProduct()
-    {
+    public ElemaCartPage removeOneSameProduct() {
         waitUntilVisibilityOf(removeOneSameProductButton).click();
         return this;
     }
 
-    public ElemaCartPage removeFromCart()
-    {
+    public ElemaCartPage removeFromCart() {
         waitUntilVisibilityOf(removeProductButton).click();
         return this;
     }
@@ -95,26 +87,23 @@ public class ElemaCartPage extends AbstractPage {
         }
     }
 
-    public ElemaCartPage putPromoCode(String promoCode)
-    {
+    public ElemaCartPage putPromoCode(String promoCode) {
         waitUntilVisibilityOf(promoCodeInput).click();
         waitUntilVisibilityOf(promoCodeInput).sendKeys(promoCode);
         promoCodeInput.sendKeys(Keys.ENTER);
         return this;
     }
 
-    public String getPromoCodeInfo()
-    {
+    public String getPromoCodeInfo() {
         return waitUntilVisibilityOf(promoCodeInfo).getText();
     }
 
-    public ElemaCartPage scrollToItem(){
+    public ElemaCartPage scrollToItem() {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", promoCodeInput);
         return this;
     }
 
-    public double getTotalPrice()
-    {
+    public double getTotalPrice() {
         double price = Double.parseDouble(itemPrice.getText().substring(0,itemPrice.getText().indexOf("р")-1).replace(",",".").replace(" ",""));
         return price;
     }

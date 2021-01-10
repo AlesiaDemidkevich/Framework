@@ -14,10 +14,8 @@ public class ItemCreator {
 
     public static Item withCredentialsFromProperty(String orderNumber){
         orderNumber = orderNumber.toLowerCase();
-
         return new Item(TestDataReader.getTestData(resolveTemplate(ITEM_URL, orderNumber)), TestDataReader.getTestData(resolveTemplate(ITEM_NAME, orderNumber)),
                 TestDataReader.getTestData(resolveTemplate(ITEM_SIZE, orderNumber)), TestDataReader.getTestData(resolveTemplate(ITEM_HEIGHT, orderNumber)),
                 Double.parseDouble(TestDataReader.getTestData(resolveTemplate(ITEM_PRICE, orderNumber))));
     }
-
 }

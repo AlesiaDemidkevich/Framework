@@ -1,26 +1,13 @@
 package test;
 
-import jdk.nashorn.internal.runtime.Debug;
 import model.Item;
-import model.User;
 import org.apache.commons.math3.util.Precision;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 import page.ElemaHomePage;
-import page.ElemaProductContainerPage;
 import page.ElemaItemPage;
 import page.ElemaCartPage;
 import service.ItemCreator;
-import service.UserCreator;
-import service.TestDataReader;
 
 public class ElemaTests extends CommonConditions{
     private static final String HOMEPAGE_URL = "https://elema.by/";
@@ -105,7 +92,7 @@ public class ElemaTests extends CommonConditions{
     }
 
     @Test
-    public void removeItemFromCartTest() throws InterruptedException {
+    public void removeItemFromCartTest() {
         Item expectedItem = ItemCreator.withCredentialsFromProperty("first");
 
         boolean isCartEmpty = new ElemaItemPage(driver)
@@ -122,7 +109,7 @@ public class ElemaTests extends CommonConditions{
     }
 
     @Test
-    public void checkPromoCodeTest() throws InterruptedException {
+    public void checkPromoCodeTest() {
         Item expectedItem = ItemCreator.withCredentialsFromProperty("first");
 
         ElemaCartPage cartPage = new ElemaItemPage(driver)
@@ -138,24 +125,9 @@ public class ElemaTests extends CommonConditions{
         Assert.assertEquals(cartPage.getPromoCodeInfo(),"qwerty - купон не найден");
     }
 
-    @Test
-    public void checkInvalidPasswordTest()
-    {
-        User user = UserCreator.withCredentialsFromProperty("first");
-
-        ElemaHomePage authorizationInfo = new ElemaHomePage(driver)
-                .openPage(HOMEPAGE_URL)
-                .clickAuthorizationButton()
-                .inputUserLogin(user.getUserLogin())
-                .inputUserPassword(user.getUserPassword())
-                .clickEnterButton();
-
-        Assert.assertEquals(authorizationInfo.getNoCorrectInfo(),"Неверный логин или пароль.");
-
-    }
 
     @Test
-    public void checkTotalPriceTest() throws InterruptedException {
+    public void checkTotalPriceTest() {
         Item firstExpectedItem = ItemCreator.withCredentialsFromProperty("first");
         Item secondExpectedItem = ItemCreator.withCredentialsFromProperty("second");
 
@@ -221,10 +193,5 @@ public class ElemaTests extends CommonConditions{
         Assert.assertTrue(item.equals(expectedItem));
         Assert.assertEquals(item.getItemCount(), "1");
         Assert.assertEquals(cost,expectedCost);
-    }
-
-    @AfterMethod
-    public void closeDriver(){
-       driver.close();
     }
 }

@@ -18,4 +18,5 @@ public class CommonConditions {
     public void dispose(){
         DriverSingleton.closeDriver();
     }
+
 }

@@ -85,14 +85,6 @@ public class Item {
         this.count = count;
     }
 
-    public double getItemCost() {
-        return cost;
-    }
-
-    public void setItemCost(double cost) {
-        this.cost = cost;
-    }
-
     @Override
     public String toString() {
         return "Item{" +

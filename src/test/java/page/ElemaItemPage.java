@@ -1,12 +1,7 @@
 package page;
 
-import model.Item;
 import org.openqa.selenium.*;
-import service.ItemCreator;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import static util.Resolver.resolveTemplate;
 
 public class ElemaItemPage extends AbstractPage{
@@ -54,7 +49,6 @@ public class ElemaItemPage extends AbstractPage{
 
     public String getProductName(){
         String name = itemName.getText();
-
         return name;
     }
 
@@ -77,5 +71,4 @@ public class ElemaItemPage extends AbstractPage{
         }
         return new ElemaCartPage(driver);
     }
-
 }

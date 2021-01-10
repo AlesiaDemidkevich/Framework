@@ -37,5 +37,4 @@ public abstract class AbstractPage {
         return new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
                 .until(ExpectedConditions.elementToBeClickable(location));
     }
-
 }

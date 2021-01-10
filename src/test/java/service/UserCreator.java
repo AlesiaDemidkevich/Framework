@@ -8,7 +8,6 @@ public class UserCreator {
     public static final String USER_PASSWORD = "test.data.user.%s.password";
 
     public static User withCredentialsFromProperty(String orderNumber){
-
         orderNumber = orderNumber.toLowerCase();
         return new User(TestDataReader.getTestData(resolveTemplate(USER_LOGIN,orderNumber)), TestDataReader.getTestData(resolveTemplate(USER_PASSWORD,orderNumber)));
     }
