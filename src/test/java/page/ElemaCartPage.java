@@ -64,7 +64,7 @@ public class ElemaCartPage extends AbstractPage {
     }
 
     public ElemaCartPage removeOneSameProduct() {
-        waitUntilVisibilityOf(removeOneSameProductButton).click();
+        waitUntilElementIsClickable(removeOneSameProductButton).click();
         return this;
     }
 
