@@ -16,10 +16,4 @@ public class ItemCreator {
                 Double.parseDouble(TestDataReader.getTestData(ITEM_PRICE)));
     }
 
-//    public static Item withEmptyCount(){
-//        return new Item(TestDataReader.getTestData(ITEM_URL), TestDataReader.getTestData(ITEM_NAME),
-//                TestDataReader.getTestData(ITEM_SIZE), TestDataReader.getTestData(ITEM_HEIGHT),
-//                Double.parseDouble(TestDataReader.getTestData(ITEM_PRICE)));
-//    }
-
 }

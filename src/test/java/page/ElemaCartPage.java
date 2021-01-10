@@ -1,13 +1,11 @@
 package page;
 
 import model.Item;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+
 import java.util.ArrayList;
 import org.openqa.selenium.support.FindBy;
 import service.ItemCreator;
-import org.openqa.selenium.TimeoutException;
 
 import static util.Resolver.resolveTemplate;
 
@@ -37,7 +35,14 @@ public class ElemaCartPage extends AbstractPage {
     @FindBy(xpath = "//div[@class=\"basket-coupon-block-total-price-current\"]")
     WebElement itemPrice;
 
+    @FindBy(xpath = "//*[@id=\"basket-root\"]/div[3]/div/div/div[1]/div/div[2]/div/input")
+    WebElement promoCodeInput;
+
+    @FindBy(xpath = "//span[@class=\"basket-coupon-text\"]")
+    WebElement promoCodeInfo;
+
     By productList = By.xpath("//tr[@class=\"basket-items-list-item-container\"]");
+
     public ElemaCartPage(WebDriver driver) {
         super(driver);
     }
@@ -79,5 +84,18 @@ public class ElemaCartPage extends AbstractPage {
         } catch(TimeoutException e) {
             return false;
         }
+    }
+
+    public ElemaCartPage putPromoCode(String promoCode)
+    {
+        promoCodeInput.click();
+        waitUntilVisibilityOf(promoCodeInput).sendKeys(promoCode);
+        promoCodeInput.sendKeys(Keys.ENTER);
+        return this;
+    }
+
+    public String getPromoCodeInfo()
+    {
+        return waitUntilVisibilityOf(promoCodeInfo).getText();
     }
 }

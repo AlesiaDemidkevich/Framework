@@ -15,6 +15,21 @@ public class ElemaHomePage extends AbstractPage {
     @FindBy(xpath = "//*[@id=\"main-nav\"]/div/form/div/input")
     private WebElement searchInput;
 
+    @FindBy(xpath = "//div[@class=\"api_auth_ajax auth-icon\"]")
+    private WebElement authorizationButton;
+
+    @FindBy(xpath = "//button[@class=\"api_button api_button_primary api_button_large api_button_wait api_width_1_1\"]")
+    private WebElement enterButton;
+
+    @FindBy(xpath = "//input[@name=\"LOGIN\"]")
+    private WebElement loginField;
+
+    @FindBy(xpath = "//input[@name=\"PASSWORD\"]")
+    private WebElement passwordField;
+
+    @FindBy(xpath = "//div[@class=\"api_error\"]")
+    private WebElement authorizationInfo;
+
     public ElemaHomePage(WebDriver driver) {
         super(driver);
     }
@@ -29,5 +44,30 @@ public class ElemaHomePage extends AbstractPage {
         waitUntilVisibilityOf(searchInput).sendKeys(productName);
         searchInput.sendKeys(Keys.ENTER);
         return new ElemaProductContainerPage(driver);
+    }
+
+    public ElemaHomePage clickAuthorizationButton() {
+        waitUntilVisibilityOf(authorizationButton).click();
+        return this;
+    }
+
+    public ElemaHomePage inputUserLogin(String userLogin) {
+        loginField.click();
+        waitUntilVisibilityOf(loginField).sendKeys(userLogin);
+        return this;
+    }
+
+    public ElemaHomePage inputUserPassword(String userPassword) {
+        passwordField.click();
+        waitUntilVisibilityOf(passwordField).sendKeys(userPassword);
+        return this;
+    }
+
+    public ElemaHomePage clickEnterButton() {
+        waitUntilVisibilityOf(enterButton).click();
+        return this;
+    }
+    public String getNoCorrectInfo(){
+        return  waitUntilVisibilityOf(authorizationInfo).getText();
     }
 }
