@@ -32,6 +32,9 @@ public class ElemaCartPage extends AbstractPage {
     @FindBy(xpath = "//span[@class=\"basket-item-actions-remove d-block d-sm-none\"]")
     WebElement removeProductButton;
 
+    @FindBy(xpath = "//span[@class=\"basket-item-amount-btn-minus\"]")
+    WebElement removeOneSameProductButton;
+
     @FindBy(xpath = "//div[@class=\"basket-coupon-block-total-price-current\"]")
     WebElement itemPrice;
 
@@ -66,6 +69,12 @@ public class ElemaCartPage extends AbstractPage {
     public ElemaCartPage addOneSameProduct()
     {
         waitUntilVisibilityOf(addOneSameProductButton).click();
+        return this;
+    }
+
+    public ElemaCartPage removeOneSameProduct()
+    {
+        waitUntilVisibilityOf(removeOneSameProductButton).click();
         return this;
     }
 

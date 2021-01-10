@@ -83,7 +83,7 @@ public class ElemaTests extends CommonConditions{
     }
 
     @Test
-    public void changeAmountOfProductTest() throws InterruptedException {
+    public void increaseCountOfProductTest() throws InterruptedException {
         Item expectedItem = ItemCreator.withCredentialsFromProperty("first");
 
         Item item = new ElemaItemPage(driver)
@@ -175,7 +175,7 @@ public class ElemaTests extends CommonConditions{
         double totalPrice = cartPage.getTotalPrice();
         double costOfFirsItem = firstExpectedItem.getItemPrice();
         double costOfSecondItem = secondExpectedItem.getItemPrice();
-        double expectedPrice = costOfFirsItem + costOfSecondItem ;
+        double expectedPrice = Precision.round(costOfFirsItem + costOfSecondItem,2) ;
 
         Assert.assertEquals(totalPrice, expectedPrice);
     }
@@ -198,6 +198,29 @@ public class ElemaTests extends CommonConditions{
 
         Assert.assertEquals(item.getItemCount(), "1");
         Assert.assertEquals(totalPrice, expectedPrice);
+    }
+
+    @Test
+    public void decreaseCountOfProductTest() throws InterruptedException {
+        Item expectedItem = ItemCreator.withCredentialsFromProperty("first");
+
+        Item item = new ElemaItemPage(driver)
+                .openPage(expectedItem.getItemUrl())
+                .scrollToItem()
+                .chooseSize(expectedItem.getItemSize())
+                .chooseHeight(expectedItem.getItemHeight())
+                .addToCart()
+                .openCart()
+                .addOneSameProduct()
+                .removeOneSameProduct()
+                .getItem();
+
+        double cost = item.getItemPrice();
+        double expectedCost = expectedItem.getItemPrice();
+
+        Assert.assertTrue(item.equals(expectedItem));
+        Assert.assertEquals(item.getItemCount(), "1");
+        Assert.assertEquals(cost,expectedCost);
     }
 
     @AfterMethod
