@@ -56,8 +56,13 @@ public class ElemaTests extends CommonConditions{
                 .addToCart()
                 .openCart()
                 .getItem();
+
+        double cost = item.getItemPrice();
+        double expectedCost = expectedItem.getItemPrice()*3;
+
         Assert.assertTrue(item.equals(expectedItem));
-         Assert.assertEquals(item.getItemCount(), "3");
+        Assert.assertEquals(item.getItemCount(), "3");
+        Assert.assertEquals(cost,expectedCost);
     }
 
     @Test
@@ -92,6 +97,7 @@ public class ElemaTests extends CommonConditions{
         double expectedCost = expectedItem.getItemPrice()*2;
 
         Assert.assertTrue(item.equals(expectedItem));
+        Assert.assertEquals(item.getItemCount(), "2");
         Assert.assertEquals(cost,expectedCost);
     }
 

@@ -53,7 +53,7 @@ public class ElemaCartPage extends AbstractPage {
         String height = itemHeight.getText();
         String count = itemCount.getAttribute("value");
         Thread.sleep(500);
-        double price = Double.parseDouble(itemPrice.getText().substring(0,itemPrice.getText().indexOf(" ")).replace(",","."));
+        double price = Double.parseDouble(itemPrice.getText().substring(0,itemPrice.getText().indexOf("р")-1).replace(",",".").replace(" ",""));
 
         return new Item(name,size,height,price, count);
     }
