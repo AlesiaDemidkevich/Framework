@@ -63,10 +63,13 @@
             <artifactId>junit</artifactId>
             <version>4.13</version>
             <scope>test</scope>
-
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.5</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
              <plugin>
@@ -74,7 +77,16 @@
                  <artifactId>maven-surefire-plugin</artifactId>
                  <version>2.22.2</version>
                  <configuration>
-                     <encoding>UTF-8</encoding>
+                     <systemPropertyVariables>
+                             <!--suppress UnresolvedMavenProperty -->
+                         <environment>
+                                     ${environment}
+                             </environment>
+                     <!--suppress UnresolvedMavenProperty -->
+                         <browser>
+                             ${browser}
+                     </browser>
+                     </systemPropertyVariables>
                  </configuration>
              </plugin>
              <plugin>

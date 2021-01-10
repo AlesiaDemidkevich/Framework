@@ -3,6 +3,7 @@ package test;
 import jdk.nashorn.internal.runtime.Debug;
 import model.Item;
 import model.User;
+import org.apache.commons.math3.util.Precision;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -26,7 +27,7 @@ public class ElemaTests extends CommonConditions{
 
     @Test
     public void addItemToCartTest() throws InterruptedException {
-        Item expectedItem = ItemCreator.withCredentialsFromProperty();
+        Item expectedItem = ItemCreator.withCredentialsFromProperty("first");
 
        Item item = new ElemaItemPage(driver)
                 .openPage(expectedItem.getItemUrl())
@@ -43,7 +44,7 @@ public class ElemaTests extends CommonConditions{
 
     @Test
     public void addTwoItemsToCartTest() throws InterruptedException {
-        Item expectedItem = ItemCreator.withCredentialsFromProperty();
+        Item expectedItem = ItemCreator.withCredentialsFromProperty("first");
 
         Item item = new ElemaItemPage(driver)
                 .openPage(expectedItem.getItemUrl())
@@ -51,7 +52,10 @@ public class ElemaTests extends CommonConditions{
                 .chooseSize(expectedItem.getItemSize())
                 .chooseHeight(expectedItem.getItemHeight())
                 .addToCart()
+                .openPage(expectedItem.getItemUrl())
                 .scrollToItem()
+                .chooseSize(expectedItem.getItemSize())
+                .chooseHeight(expectedItem.getItemHeight())
                 .addToCart()
                 .openCart()
                 .getItem();
@@ -66,7 +70,7 @@ public class ElemaTests extends CommonConditions{
 
     @Test
     public void searchTest(){
-        Item expectedItem = ItemCreator.withCredentialsFromProperty();
+        Item expectedItem = ItemCreator.withCredentialsFromProperty("first");
 
         String item = new ElemaHomePage(driver)
                 .openPage(HOMEPAGE_URL)
@@ -80,7 +84,7 @@ public class ElemaTests extends CommonConditions{
 
     @Test
     public void changeAmountOfProductTest() throws InterruptedException {
-        Item expectedItem = ItemCreator.withCredentialsFromProperty();
+        Item expectedItem = ItemCreator.withCredentialsFromProperty("first");
 
         Item item = new ElemaItemPage(driver)
                 .openPage(expectedItem.getItemUrl())
@@ -102,7 +106,7 @@ public class ElemaTests extends CommonConditions{
 
     @Test
     public void removeItemFromCartTest() throws InterruptedException {
-        Item expectedItem = ItemCreator.withCredentialsFromProperty();
+        Item expectedItem = ItemCreator.withCredentialsFromProperty("first");
 
         boolean isCartEmpty = new ElemaItemPage(driver)
                 .openPage(expectedItem.getItemUrl())
@@ -119,7 +123,7 @@ public class ElemaTests extends CommonConditions{
 
     @Test
     public void checkPromoCodeTest() throws InterruptedException {
-        Item expectedItem = ItemCreator.withCredentialsFromProperty();
+        Item expectedItem = ItemCreator.withCredentialsFromProperty("first");
 
         ElemaCartPage cartPage = new ElemaItemPage(driver)
                 .openPage(expectedItem.getItemUrl())
@@ -137,7 +141,7 @@ public class ElemaTests extends CommonConditions{
     @Test
     public void checkInvalidPasswordTest()
     {
-        User user = UserCreator.withCredentialsFromProperty();
+        User user = UserCreator.withCredentialsFromProperty("first");
 
         ElemaHomePage authorizationInfo = new ElemaHomePage(driver)
                 .openPage(HOMEPAGE_URL)
@@ -148,6 +152,52 @@ public class ElemaTests extends CommonConditions{
 
         Assert.assertEquals(authorizationInfo.getNoCorrectInfo(),"Неверный логин или пароль.");
 
+    }
+
+    @Test
+    public void checkTotalPriceTest() throws InterruptedException {
+        Item firstExpectedItem = ItemCreator.withCredentialsFromProperty("first");
+        Item secondExpectedItem = ItemCreator.withCredentialsFromProperty("second");
+
+        ElemaCartPage cartPage = new ElemaItemPage(driver)
+                .openPage(firstExpectedItem.getItemUrl())
+                .scrollToItem()
+                .chooseSize(firstExpectedItem.getItemSize())
+                .chooseHeight(firstExpectedItem.getItemHeight())
+                .addToCart()
+                .openPage(secondExpectedItem.getItemUrl())
+                .scrollToItem()
+                .chooseSize(secondExpectedItem.getItemSize())
+                .chooseHeight(secondExpectedItem.getItemHeight())
+                .addToCart()
+                .openCart();
+
+        double totalPrice = cartPage.getTotalPrice();
+        double costOfFirsItem = firstExpectedItem.getItemPrice();
+        double costOfSecondItem = secondExpectedItem.getItemPrice();
+        double expectedPrice = costOfFirsItem + costOfSecondItem ;
+
+        Assert.assertEquals(totalPrice, expectedPrice);
+    }
+
+    @Test
+    public void checkSaleTest() throws InterruptedException {
+        Item expectedItem = ItemCreator.withCredentialsFromProperty("third");
+
+        Item item = new ElemaItemPage(driver)
+                .openPage(expectedItem.getItemUrl())
+                .scrollToItem()
+                .chooseSize(expectedItem.getItemSize())
+                .chooseHeight(expectedItem.getItemHeight())
+                .addToCart()
+                .openCart()
+                .getItem();
+
+        double totalPrice = item.getItemPrice();
+        double expectedPrice = Precision.round(expectedItem.getItemPrice()*0.7,2);
+
+        Assert.assertEquals(item.getItemCount(), "1");
+        Assert.assertEquals(totalPrice, expectedPrice);
     }
 
     @AfterMethod

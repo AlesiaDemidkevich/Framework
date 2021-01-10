@@ -103,4 +103,10 @@ public class ElemaCartPage extends AbstractPage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", promoCodeInput);
         return this;
     }
+
+    public double getTotalPrice()
+    {
+        double price = Double.parseDouble(itemPrice.getText().substring(0,itemPrice.getText().indexOf("р")-1).replace(",",".").replace(" ",""));
+        return price;
+    }
 }

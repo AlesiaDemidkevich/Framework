@@ -18,7 +18,7 @@ public class ElemaItemPage extends AbstractPage{
     @FindBy(xpath = "//a[@href=\"javascript:void(0);\"]")
     WebElement addToCartButton;
 
-    @FindBy(xpath = "//a[@href=\"/personal/cart/\"]")
+    @FindBy(xpath = "//a[@class=\"btn btn-sm btn-info\"]")
     WebElement openCartButton;
 
     @FindBy(xpath = "//button[@class=\"shopping-cart dropdown-toggle\"]")
