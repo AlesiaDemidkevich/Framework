@@ -41,9 +41,6 @@ public class ElemaCartPage extends AbstractPage {
     @FindBy(xpath = "//span[@class=\"basket-coupon-text\"]")
     WebElement promoCodeInfo;
 
-    @FindBy(xpath = "//span[@class=\"basket-coupon-block-coupon-btn\"]")
-    WebElement promoCodeButton;
-
     By productList = By.xpath("//tr[@class=\"basket-items-list-item-container\"]");
 
     public ElemaCartPage(WebDriver driver) {
@@ -93,12 +90,17 @@ public class ElemaCartPage extends AbstractPage {
     {
         waitUntilVisibilityOf(promoCodeInput).click();
         waitUntilVisibilityOf(promoCodeInput).sendKeys(promoCode);
-        waitUntilVisibilityOf(promoCodeButton).click();
+        promoCodeInput.sendKeys(Keys.ENTER);
         return this;
     }
 
     public String getPromoCodeInfo()
     {
         return waitUntilVisibilityOf(promoCodeInfo).getText();
+    }
+
+    public ElemaCartPage scrollToItem(){
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", promoCodeInput);
+        return this;
     }
 }

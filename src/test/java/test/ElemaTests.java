@@ -42,7 +42,7 @@ public class ElemaTests extends CommonConditions{
     }
 
     @Test
-    public void addThreeItemsToCartTest() throws InterruptedException {
+    public void addTwoItemsToCartTest() throws InterruptedException {
         Item expectedItem = ItemCreator.withCredentialsFromProperty();
 
         Item item = new ElemaItemPage(driver)
@@ -53,17 +53,15 @@ public class ElemaTests extends CommonConditions{
                 .addToCart()
                 .scrollToItem()
                 .addToCart()
-                .scrollToItem()
-                .addToCart()
                 .openCart()
                 .getItem();
 
         double cost = item.getItemPrice();
-        double expectedCost = expectedItem.getItemPrice()*3;
+        double expectedCost = expectedItem.getItemPrice()*2;
 
         Assert.assertTrue(item.equals(expectedItem));
-        Assert.assertEquals(item.getItemCount(), "3");
-        Assert.assertEquals(cost,expectedCost);
+        Assert.assertEquals(item.getItemCount(), "2");
+        Assert.assertEquals(cost, expectedCost);
     }
 
     @Test
@@ -130,6 +128,7 @@ public class ElemaTests extends CommonConditions{
                 .chooseHeight(expectedItem.getItemHeight())
                 .addToCart()
                 .openCart()
+                .scrollToItem()
                 .putPromoCode("qwerty");
 
         Assert.assertEquals(cartPage.getPromoCodeInfo(),"qwerty - купон не найден");

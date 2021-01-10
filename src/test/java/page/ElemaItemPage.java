@@ -1,11 +1,8 @@
 package page;
 
 import model.Item;
-import org.openqa.selenium.By;
+import org.openqa.selenium.*;
 import service.ItemCreator;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -23,6 +20,9 @@ public class ElemaItemPage extends AbstractPage{
 
     @FindBy(xpath = "//a[@href=\"/personal/cart/\"]")
     WebElement openCartButton;
+
+    @FindBy(xpath = "//button[@class=\"shopping-cart dropdown-toggle\"]")
+    WebElement cartButton;
 
     @FindBy(xpath = "//h1[@class=\"name_block\"]")
     WebElement itemName;
@@ -64,8 +64,17 @@ public class ElemaItemPage extends AbstractPage{
     }
 
     public ElemaCartPage openCart(){
-        waitUntilElementIsClickable(openCartButton)
+        try {
+            waitUntilElementIsClickable(openCartButton)
+                    .click();
+        }
+        catch(TimeoutException e)
+        {
+            waitUntilElementIsClickable(cartButton)
+                    .click();
+            waitUntilElementIsClickable(openCartButton)
                 .click();
+        }
         return new ElemaCartPage(driver);
     }
 
