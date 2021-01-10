@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import org.openqa.selenium.support.FindBy;
 import service.ItemCreator;
+import org.openqa.selenium.TimeoutException;
 
 import static util.Resolver.resolveTemplate;
 
@@ -23,9 +24,6 @@ public class ElemaCartPage extends AbstractPage {
 
     @FindBy(xpath = "//div[@data-column-property-code=\"HEIGHT\"]")
     WebElement itemHeight;
-//
-//    @FindBy(xpath = "//div[@data-column-property-code=\"PRICE\"]")
-//    WebElement itemPrice;
 
     @FindBy(xpath = "//input[@class=\"basket-item-amount-filed\"]")
     WebElement itemCount;
@@ -33,8 +31,13 @@ public class ElemaCartPage extends AbstractPage {
     @FindBy(xpath = "//span[@class=\"basket-item-amount-btn-plus\"]")
     WebElement addOneSameProductButton;
 
+    @FindBy(xpath = "//span[@class=\"basket-item-actions-remove d-block d-sm-none\"]")
+    WebElement removeProductButton;
+
     @FindBy(xpath = "//div[@class=\"basket-coupon-block-total-price-current\"]")
     WebElement itemPrice;
+
+    By productList = By.xpath("//tr[@class=\"basket-items-list-item-container\"]");
     public ElemaCartPage(WebDriver driver) {
         super(driver);
     }
@@ -59,5 +62,22 @@ public class ElemaCartPage extends AbstractPage {
     {
         waitUntilVisibilityOf(addOneSameProductButton).click();
         return this;
+    }
+
+    public ElemaCartPage removeFromCart()
+    {
+        waitUntilVisibilityOf(removeProductButton).click();
+        return this;
+    }
+
+    public boolean isEmpty() {
+
+        try {
+            waitUntilInvisibilityOf(productList);
+            return true;
+
+        } catch(TimeoutException e) {
+            return false;
+        }
     }
 }

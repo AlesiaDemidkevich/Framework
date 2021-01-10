@@ -1,5 +1,6 @@
 package test;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import jdk.nashorn.internal.runtime.Debug;
 import model.Item;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -88,15 +89,28 @@ public class ElemaTests extends CommonConditions{
                 .getItem();
 
         double cost = item.getItemPrice();
-        System.out.println(cost);
-
-        double totalCost = expectedItem.getItemPrice()*2;
-        System.out.println(totalCost);
+        double expectedCost = expectedItem.getItemPrice()*2;
 
         Assert.assertTrue(item.equals(expectedItem));
-        Assert.assertEquals(cost,totalCost);
+        Assert.assertEquals(cost,expectedCost);
     }
 
+    @Test
+    public void removeItemFromCartTest() throws InterruptedException {
+        Item expectedItem = ItemCreator.withCredentialsFromProperty();
+
+        boolean isCartEmpty = new ElemaItemPage(driver)
+                .openPage(expectedItem.getItemUrl())
+                .scrollToItem()
+                .chooseSize(expectedItem.getItemSize())
+                .chooseHeight(expectedItem.getItemHeight())
+                .addToCart()
+                .openCart()
+                .removeFromCart()
+                .isEmpty();
+
+        Assert.assertTrue(isCartEmpty);
+    }
 
     @AfterMethod
     public void closeDriver(){

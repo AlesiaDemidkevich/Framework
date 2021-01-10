@@ -23,6 +23,11 @@ public abstract class AbstractPage {
                 .until(ExpectedConditions.visibilityOf(element));
     }
 
+    public boolean waitUntilInvisibilityOf(By element){
+        return new WebDriverWait(driver, 10)
+                .until(ExpectedConditions.invisibilityOfElementLocated(element));
+    }
+
     public WebElement waitUntilElementIsClickable(WebElement element){
         return new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
                 .until(ExpectedConditions.elementToBeClickable(element));
