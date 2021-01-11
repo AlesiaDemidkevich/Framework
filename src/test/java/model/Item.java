@@ -28,15 +28,6 @@ public class Item {
         this.count = count;
     }
 
-    public Item(String name, String size, String height, double price, String count, double cost) {
-        this.name = name;
-        this.size = size;
-        this.height= height;
-        this.price = price;
-        this.count = count;
-        this.cost = cost;
-    }
-
     public String getItemUrl() {
         return url;
     }
